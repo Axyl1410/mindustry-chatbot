@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        <link href="assets/favicon.svg" rel="icon" type="image/svg+xml" />
         <link
           fetchPriority="high"
           href="https://fonts.cdnfonts.com/css/pp-neue-montreal"
