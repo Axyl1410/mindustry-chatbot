@@ -2,13 +2,13 @@
 
 import { InfoIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { SidebarToggle } from "@/components/sidebar-toggle";
+import { SidebarToggle } from "@/components/sidebar/sidebar-toggle";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { AppInfoTrigger } from "./app-info/app-info-trigger";
-import { PlusIcon } from "./icons";
-import { useSidebar } from "./ui/sidebar";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { AppInfoTrigger } from "../app-info/app-info-trigger";
+import { PlusIcon } from "../icons";
+import { useSidebar } from "../ui/sidebar";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 export function ChatHeader() {
   const router = useRouter();

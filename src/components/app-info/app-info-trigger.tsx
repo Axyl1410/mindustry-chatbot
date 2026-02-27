@@ -47,7 +47,7 @@ export function AppInfoTrigger({ trigger }: AppInfoTriggerProps) {
               className="h-32 w-full object-cover object-[45%_55%]"
               draggable={false}
               height={128}
-              src="/mindustry.webp"
+              src="/images/mindustry.webp"
               width={400}
             />
             <DrawerTitle className="hidden">Mindustry Chatbot</DrawerTitle>
@@ -73,7 +73,7 @@ export function AppInfoTrigger({ trigger }: AppInfoTriggerProps) {
             className="h-32 w-full object-cover object-[45%_55%]"
             draggable={false}
             height={128}
-            src="/mindustry.webp"
+            src="/images/mindustry.webp"
             width={400}
           />
           <DialogTitle className="hidden">Mindustry Chatbot</DialogTitle>

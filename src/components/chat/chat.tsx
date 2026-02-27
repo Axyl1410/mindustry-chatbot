@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { sileo } from "sileo";
-import { ChatHeader } from "@/components/chat-header";
+import { ChatHeader } from "@/components/chat/chat-header";
 import { Button } from "@/components/ui/button";
 
 export function Chat() {

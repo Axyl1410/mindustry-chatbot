@@ -2,8 +2,8 @@
 
 import { useTheme } from "next-themes";
 import { Toaster } from "sileo";
+import { TooltipProvider } from "../ui/tooltip";
 import { ThemeProvider } from "./theme-provider";
-import { TooltipProvider } from "./ui/tooltip";
 
 function ThemedToaster() {
   const { resolvedTheme } = useTheme();
@@ -16,7 +16,11 @@ function ThemedToaster() {
   );
 }
 
-export default function Provider({ children }: { children: React.ReactNode }) {
+export default function ClientProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <ThemeProvider
       attribute="class"

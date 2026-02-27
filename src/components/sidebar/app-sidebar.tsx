@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { PlusIcon } from "@/components/icons";
-import { SidebarHistory } from "@/components/sidebar-history";
-import { SidebarUserNav } from "@/components/sidebar-user-nav";
+import { SidebarHistory } from "@/components/sidebar/sidebar-history";
+import { SidebarUserNav } from "@/components/sidebar/sidebar-user-nav";
 import { Button } from "@/components/ui/button";
 import {
   Sidebar,
@@ -14,7 +14,7 @@ import {
   SidebarMenu,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 export function AppSidebar() {
   const router = useRouter();

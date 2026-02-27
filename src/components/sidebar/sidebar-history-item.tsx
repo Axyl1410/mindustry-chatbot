@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SidebarMenuButton, SidebarMenuItem } from "./ui/sidebar";
+import { SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
 
 interface ChatItemProps {
   href: string;
