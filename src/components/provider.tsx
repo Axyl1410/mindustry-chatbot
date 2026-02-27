@@ -10,6 +10,7 @@ function ThemedToaster() {
 
   return (
     <Toaster
+      position="top-center"
       theme={(resolvedTheme ?? "system") as "light" | "dark" | "system"}
     />
   );

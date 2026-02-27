@@ -22,22 +22,22 @@
     "date-fns": "^4.1.0",
     "lucide-react": "^0.575.0",
     "motion": "^12.34.3",
-    "next": "16.1.5",
+    "next": "16.1.6",
     "next-themes": "^0.4.6",
     "radix-ui": "^1.4.3",
-    "react": "19.1.5",
-    "react-dom": "19.1.5",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
     "sileo": "^0.1.5",
     "swr": "^2.4.0",
     "tailwind-merge": "^3.5.0",
-    "usehooks-ts": "^3.1.1"
+    "vaul": "^1.1.2"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^25.3.2",
-    "@types/react": "^19.1.5",
-    "@types/react-dom": "^19.1.5",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
     "babel-plugin-react-compiler": "^1.0.0",
     "lefthook": "^2.1.1",
     "shadcn": "^3.8.5",
@@ -46,5 +46,9 @@
     "typescript": "^5.7.4",
     "ultracite": "7.2.4",
     "wrangler": "^4.69.0"
+  },
+  "overrides": {
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3"
   }
 }

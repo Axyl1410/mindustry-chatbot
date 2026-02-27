@@ -7,7 +7,10 @@ import { Button } from "@/components/ui/button";
 
 export function Chat() {
   const handleClick = () => {
-    sileo.success({ title: "Changes saved" });
+    sileo.info({
+      title: "Changes saved",
+      description: "Changes saved successfully",
+    });
   };
 
   return (
