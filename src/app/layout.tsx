@@ -5,6 +5,17 @@ import Provider from "@/components/provider/client-provider";
 export const metadata: Metadata = {
   title: "Mindustry Chatbot",
   description: "A chatbot for the game Mindustry",
+  openGraph: {
+    title: "Mindustry Chatbot",
+    description: "A chatbot for the game Mindustry",
+    images: ["/images/mindustry.webp"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mindustry Chatbot",
+    description: "A chatbot for the game Mindustry",
+    images: ["/images/mindustry.webp"],
+  },
 };
 
 export default function RootLayout({
@@ -15,7 +26,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link href="assets/favicon.svg" rel="icon" type="image/svg+xml" />
         <link
           fetchPriority="high"
           href="https://fonts.cdnfonts.com/css/pp-neue-montreal"
