@@ -46,7 +46,7 @@ function CodeBlockCode({
         return
       }
 
-      const { codeToHtml } = await import("shiki/bundle-web.mjs")
+      const { codeToHtml } = await import("shiki")
       const html = await codeToHtml(code, { lang: language, theme })
       setHighlightedHtml(html)
     }

@@ -12,6 +12,10 @@ export async function POST(req: Request) {
   const { env } = getCloudflareContext();
   const { messages }: { messages: UIMessage[] } = await req.json();
 
+  const lastMessage = messages.at(-1);
+
+  console.log(lastMessage?.parts?.find((part) => part.type === "text")?.text);
+
   const aigateway = createAiGateway({
     accountId: env.ACCOUNT_ID,
     gateway: env.GATEWAY,
@@ -21,7 +25,9 @@ export async function POST(req: Request) {
   const unified = createUnified();
 
   const result = streamText({
-    model: aigateway(unified("workers-ai/@cf/ibm-granite/granite-4.0-h-micro")),
+    model: aigateway(
+      unified("workers-ai/@cf/meta/llama-4-scout-17b-16e-instruct")
+    ),
     messages: await convertToModelMessages(messages),
     maxOutputTokens: 2048,
     experimental_transform: smoothStream(),
