@@ -1,5 +1,6 @@
-import type { UIMessage } from "ai";
-import { AlertTriangle, Copy, ThumbsDown, ThumbsUp } from "lucide-react";
+/** biome-ignore-all lint/suspicious/noExplicitAny: UIMessagePart from ai package uses any for tool types */
+import type { UIMessage, UIMessagePart } from "ai";
+import { Copy, ThumbsDown, ThumbsUp } from "lucide-react";
 import { memo } from "react";
 import { Button } from "@/components/ui/button";
 import { PulseLoader } from "@/components/ui/loader";
@@ -9,12 +10,37 @@ import {
   MessageActions,
   MessageContent,
 } from "@/components/ui/message";
+import {
+  Reasoning,
+  ReasoningContent,
+  ReasoningTrigger,
+} from "@/components/ui/reasoning";
+import { Source, SourceContent, SourceTrigger } from "@/components/ui/source";
+import { SystemMessage } from "@/components/ui/system-message";
 import { cn } from "@/lib/utils";
+import { Tool, type ToolPart } from "../ui/tool";
 
 export interface MessageComponentProps {
   isLastMessage: boolean;
   message: UIMessage;
 }
+
+const renderToolPart = (
+  part: UIMessagePart<any, any>,
+  index: number
+): React.ReactNode => {
+  if (!part.type?.startsWith("tool-")) {
+    return null;
+  }
+
+  return <Tool key={`${part.type}-${index}`} toolPart={part as ToolPart} />;
+};
+
+const getReasoningParts = (parts: UIMessagePart<any, any>[]) =>
+  parts.filter((p) => p.type === "reasoning");
+
+const getSourceUrlParts = (parts: UIMessagePart<any, any>[]) =>
+  parts.filter((p) => p.type === "source-url");
 
 export const MessageComponent = memo(
   ({ message, isLastMessage }: MessageComponentProps) => {
@@ -28,7 +54,35 @@ export const MessageComponent = memo(
         )}
       >
         {isAssistant ? (
-          <div className="group flex w-full flex-col gap-0">
+          <div className="group flex w-full flex-col gap-2">
+            <div className="w-full">
+              {message?.parts
+                .filter((part: any) => part.type?.startsWith("tool-"))
+                .map((part: any, index: number) => renderToolPart(part, index))}
+            </div>
+            {(() => {
+              const reasoningParts = getReasoningParts(message.parts);
+              const reasoningText = reasoningParts
+                .map((p) => (p as { text: string }).text)
+                .join("");
+              const isReasoningStreaming = reasoningParts.some(
+                (p) => (p as { state?: string }).state === "streaming"
+              );
+              if (reasoningText) {
+                return (
+                  <Reasoning
+                    className="w-full"
+                    isStreaming={isReasoningStreaming}
+                  >
+                    <ReasoningTrigger>Thinking</ReasoningTrigger>
+                    <ReasoningContent contentClassName="pt-2" markdown>
+                      {reasoningText}
+                    </ReasoningContent>
+                  </Reasoning>
+                );
+              }
+              return null;
+            })()}
             <MessageContent
               className="prose w-full min-w-0 flex-1 rounded-lg bg-transparent p-0 text-foreground"
               markdown
@@ -37,6 +91,41 @@ export const MessageComponent = memo(
                 .map((part) => (part.type === "text" ? part.text : null))
                 .join("")}
             </MessageContent>
+            {(() => {
+              const sourceParts = getSourceUrlParts(message.parts) as Array<{
+                sourceId: string;
+                url: string;
+                title?: string;
+              }>;
+              if (sourceParts.length === 0) {
+                return null;
+              }
+              return (
+                <div className="flex flex-wrap gap-1.5">
+                  {sourceParts.map((part) => {
+                    let domain = part.url;
+                    try {
+                      domain = new URL(part.url).hostname;
+                    } catch {
+                      domain = part.url.split("/").pop() ?? part.url;
+                    }
+                    return (
+                      <Source href={part.url} key={part.sourceId}>
+                        <SourceTrigger
+                          className="text-xs"
+                          label={part.title ?? domain.replace("www.", "")}
+                          showFavicon
+                        />
+                        <SourceContent
+                          description={part.url}
+                          title={part.title ?? domain}
+                        />
+                      </Source>
+                    );
+                  })}
+                </div>
+              );
+            })()}
             <MessageActions
               className={cn(
                 "-ml-2.5 flex gap-0 opacity-0 transition-opacity duration-150 group-hover:opacity-100",
@@ -101,12 +190,9 @@ LoadingMessage.displayName = "LoadingMessage";
 
 export const ErrorMessage = memo(({ error }: { error: Error }) => (
   <Message className="not-prose mx-auto flex w-full max-w-3xl flex-col items-start gap-2 px-0 md:px-10">
-    <div className="group flex w-full flex-col items-start gap-0">
-      <div className="flex min-w-0 flex-1 flex-row items-center gap-2 rounded-lg border-2 border-red-300 bg-red-300/20 px-2 py-1 text-primary">
-        <AlertTriangle className="text-red-500" size={16} />
-        <p className="text-red-500">{error.message}</p>
-      </div>
-    </div>
+    <SystemMessage className="w-full" fill variant="error">
+      {error.message}
+    </SystemMessage>
   </Message>
 ));
 

@@ -1,9 +1,9 @@
 import { PromptSuggestion } from "@/components/ui/prompt-suggestion";
 
 const DEFAULT_SUGGESTIONS = [
-  "Tell me a joke",
-  "How does this work?",
-  "Generate an image of a cat",
+  "what's the current date?",
+  "what time is it in Tokyo?",
+  "give me the current time in Europe/Paris",
   "Write a poem",
   "Code a React component",
 ] as const;
