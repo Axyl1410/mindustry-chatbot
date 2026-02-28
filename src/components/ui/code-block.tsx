@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils"
 import React, { useEffect, useState } from "react"
-import { codeToHtml } from "shiki"
+import { codeToHtml } from "shiki/bundle-web.mjs"
 
 export type CodeBlockProps = {
   children?: React.ReactNode
