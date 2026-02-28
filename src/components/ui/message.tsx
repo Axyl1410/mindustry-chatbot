@@ -109,7 +109,7 @@ const MessageAction = ({
     <TooltipProvider>
       <Tooltip {...props}>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
-        <TooltipContent side={side} className={className}>
+        <TooltipContent side={side} className={cn("opacity-0 md:opacity-100", className)}>
           {tooltip}
         </TooltipContent>
       </Tooltip>

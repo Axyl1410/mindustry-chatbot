@@ -31,7 +31,11 @@ export const AssistantMessageActions = memo(
 
     return (
       <MessageActionsRoot
-        className={cn("-ml-2.5", actionsClass, isLastMessage && "opacity-100")}
+        className={cn(
+          "-ml-2.5",
+          actionsClass,
+          isLastMessage && "group-hover:opacity-100 md:opacity-100"
+        )}
       >
         <MessageAction delayDuration={100} tooltip="Copy">
           <Button
