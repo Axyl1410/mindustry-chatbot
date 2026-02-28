@@ -148,7 +148,10 @@ export function Chat() {
       <ChatHeader />
 
       <ChatContainerRoot className="relative flex-1 space-y-0 overflow-y-auto">
-        <ChatContainerContent className="space-y-12 px-4 py-12">
+        <ChatContainerContent
+          className="space-y-12 px-4 py-12"
+          scrollClassName="scrollbar-hide"
+        >
           {messages.map((message, index) => {
             const isLastMessage = index === messages.length - 1;
 
