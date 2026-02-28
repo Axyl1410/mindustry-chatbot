@@ -8,7 +8,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Mindustry Chatbot",
     description: "A chatbot for the game Mindustry",
-    images: ["/images/mindustry.webp"],
+    images: [
+      {
+        url: "/images/mindustry.webp",
+        width: 1200,
+        height: 630,
+        alt: "Mindustry Chatbot",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
