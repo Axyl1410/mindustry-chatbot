@@ -21,7 +21,7 @@ export async function POST(req: Request) {
   const unified = createUnified();
 
   const result = streamText({
-    model: aigateway(unified("workers-ai/@cf/meta/llama-3.1-8b-instruct")),
+    model: aigateway(unified("workers-ai/@cf/ibm-granite/granite-4.0-h-micro")),
     messages: await convertToModelMessages(messages),
     maxOutputTokens: 2048,
     experimental_transform: smoothStream(),
