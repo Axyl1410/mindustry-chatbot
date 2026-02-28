@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 import { Button } from "@/components/ui/button";
-import { Kbd, KbdGroup } from "@/components/ui/kbd";
+import { Kbd } from "@/components/ui/kbd";
 import { type SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import {
   Tooltip,
@@ -29,11 +29,7 @@ export function SidebarToggle({
       </TooltipTrigger>
       <TooltipContent align="start" className="hidden md:block">
         Toggle Sidebar
-        <KbdGroup className="ml-2">
-          <Kbd>Ctrl</Kbd>
-          <span>+</span>
-          <Kbd>B</Kbd>
-        </KbdGroup>
+        <Kbd className="ml-1">Ctrl+B</Kbd>
       </TooltipContent>
     </Tooltip>
   );
