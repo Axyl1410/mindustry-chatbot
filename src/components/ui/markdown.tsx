@@ -1,10 +1,12 @@
 import { cn } from "@/lib/utils"
 import { marked } from "marked"
-import { memo, useId, useMemo } from "react"
+import { memo, useId, useMemo, useState } from "react"
 import ReactMarkdown, { Components } from "react-markdown"
 import remarkBreaks from "remark-breaks"
 import remarkGfm from "remark-gfm"
-import { CodeBlock, CodeBlockCode } from "./code-block"
+import { CodeBlock, CodeBlockCode, CodeBlockGroup } from "./code-block"
+import { Button } from "./button"
+import { Check, Copy } from "lucide-react"
 
 export type MarkdownProps = {
   children: string
@@ -26,6 +28,7 @@ function extractLanguage(className?: string): string {
 
 const INITIAL_COMPONENTS: Partial<Components> = {
   code: function CodeComponent({ className, children, ...props }) {
+    const [copied, setCopied] = useState(false)
     const isInline =
       !props.node?.position?.start.line ||
       props.node?.position?.start.line === props.node?.position?.end.line
@@ -46,8 +49,33 @@ const INITIAL_COMPONENTS: Partial<Components> = {
 
     const language = extractLanguage(className)
 
+    const handleCopy = () => {
+      navigator.clipboard.writeText(children as string)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+
     return (
       <CodeBlock className={className}>
+          <CodeBlockGroup className="border-border border-b py-2 pr-2 pl-4">
+          <div className="flex items-center gap-2">
+            <div className="bg-primary/10 text-primary rounded px-2 py-1 text-xs font-medium">
+              {language}
+            </div>
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8"
+            onClick={handleCopy}
+          >
+            {copied ? (
+              <Check className="h-4 w-4 text-green-500" />
+            ) : (
+              <Copy className="h-4 w-4" />
+            )}
+          </Button>
+        </CodeBlockGroup>
         <CodeBlockCode code={children as string} language={language} />
       </CodeBlock>
     )

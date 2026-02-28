@@ -1,5 +1,3 @@
-"use client";
-
 import { memo } from "react";
 import { Message } from "@/components/ui/message";
 import { SystemMessage } from "@/components/ui/system-message";

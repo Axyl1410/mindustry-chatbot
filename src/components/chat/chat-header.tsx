@@ -1,5 +1,3 @@
-"use client";
-
 import { InfoIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { SidebarToggle } from "@/components/sidebar/sidebar-toggle";

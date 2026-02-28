@@ -1,5 +1,3 @@
-"use client";
-
 import { memo } from "react";
 import { PulseLoader } from "@/components/ui/loader";
 import { Message } from "@/components/ui/message";
