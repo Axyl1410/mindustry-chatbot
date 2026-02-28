@@ -1,14 +1,7 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: UIMessagePart from ai package uses any for tool types */
 import type { UIMessage, UIMessagePart } from "ai";
-import { Copy, ThumbsDown, ThumbsUp } from "lucide-react";
 import { memo } from "react";
-import { Button } from "@/components/ui/button";
-import {
-  Message,
-  MessageAction,
-  MessageActions,
-  MessageContent,
-} from "@/components/ui/message";
+import { Message, MessageContent } from "@/components/ui/message";
 import {
   Reasoning,
   ReasoningContent,
@@ -17,6 +10,7 @@ import {
 import { Source, SourceContent, SourceTrigger } from "@/components/ui/source";
 import { cn } from "@/lib/utils";
 import { Tool, type ToolPart } from "../ui/tool";
+import { AssistantMessageActions, UserMessageActions } from "./message-actions";
 
 export interface MessageComponentProps {
   isLastMessage: boolean;
@@ -40,9 +34,16 @@ const getReasoningParts = (parts: UIMessagePart<any, any>[]) =>
 const getSourceUrlParts = (parts: UIMessagePart<any, any>[]) =>
   parts.filter((p) => p.type === "source-url");
 
+const getMessageText = (parts: UIMessagePart<any, any>[]) =>
+  parts
+    .map((part) => (part.type === "text" ? part.text : null))
+    .filter(Boolean)
+    .join("");
+
 export const MessageComponent = memo(
   ({ message, isLastMessage }: MessageComponentProps) => {
     const isAssistant = message.role === "assistant";
+    const messageText = getMessageText(message.parts);
 
     return (
       <Message
@@ -85,9 +86,7 @@ export const MessageComponent = memo(
               className="prose w-full min-w-0 flex-1 rounded-lg bg-transparent p-0 text-foreground"
               markdown
             >
-              {message.parts
-                .map((part) => (part.type === "text" ? part.text : null))
-                .join("")}
+              {messageText}
             </MessageContent>
             {(() => {
               const sourceParts = getSourceUrlParts(message.parts) as Array<{
@@ -124,47 +123,17 @@ export const MessageComponent = memo(
                 </div>
               );
             })()}
-            <MessageActions
-              className={cn(
-                "-ml-2.5 flex gap-0 transition-opacity duration-150 group-hover:opacity-100 md:opacity-0",
-                isLastMessage && "opacity-100"
-              )}
-            >
-              <MessageAction delayDuration={100} tooltip="Copy">
-                <Button className="rounded-full" size="icon" variant="ghost">
-                  <Copy />
-                </Button>
-              </MessageAction>
-              <MessageAction delayDuration={100} tooltip="Upvote">
-                <Button className="rounded-full" size="icon" variant="ghost">
-                  <ThumbsUp />
-                </Button>
-              </MessageAction>
-              <MessageAction delayDuration={100} tooltip="Downvote">
-                <Button className="rounded-full" size="icon" variant="ghost">
-                  <ThumbsDown />
-                </Button>
-              </MessageAction>
-            </MessageActions>
+            <AssistantMessageActions
+              isLastMessage={isLastMessage}
+              textToCopy={messageText}
+            />
           </div>
         ) : (
           <div className="group flex w-full flex-col items-end gap-1">
             <MessageContent className="max-w-[85%] whitespace-pre-wrap rounded-3xl bg-muted px-5 py-2.5 text-primary sm:max-w-[75%]">
-              {message.parts
-                .map((part) => (part.type === "text" ? part.text : null))
-                .join("")}
+              {messageText}
             </MessageContent>
-            <MessageActions
-              className={cn(
-                "flex gap-0 transition-opacity duration-150 group-hover:opacity-100 md:opacity-0"
-              )}
-            >
-              <MessageAction delayDuration={100} tooltip="Copy">
-                <Button className="rounded-full" size="icon" variant="ghost">
-                  <Copy />
-                </Button>
-              </MessageAction>
-            </MessageActions>
+            <UserMessageActions textToCopy={messageText} />
           </div>
         )}
       </Message>
