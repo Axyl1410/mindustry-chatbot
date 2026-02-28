@@ -1,133 +1,24 @@
 import { useChat } from "@ai-sdk/react";
-import type { UIMessage } from "ai";
-import {
-  AlertTriangle,
-  ArrowUp,
-  Copy,
-  ThumbsDown,
-  ThumbsUp,
-} from "lucide-react";
-import { memo, useState } from "react";
+import { ArrowUp } from "lucide-react";
+import { useState } from "react";
 import { ChatHeader } from "@/components/chat/chat-header";
+import {
+  ErrorMessage,
+  LoadingMessage,
+  MessageComponent,
+} from "@/components/chat/chat-message";
+import { ChatSuggestions } from "@/components/chat/chat-suggestions";
 import { Button } from "@/components/ui/button";
 import {
   ChatContainerContent,
   ChatContainerRoot,
 } from "@/components/ui/chat-container";
-import { PulseLoader } from "@/components/ui/loader";
-import {
-  Message,
-  MessageAction,
-  MessageActions,
-  MessageContent,
-} from "@/components/ui/message";
 import {
   PromptInput,
   PromptInputActions,
   PromptInputTextarea,
 } from "@/components/ui/prompt-input";
-import { cn } from "@/lib/utils";
-
-interface MessageComponentProps {
-  isLastMessage: boolean;
-  message: UIMessage;
-}
-
-export const MessageComponent = memo(
-  ({ message, isLastMessage }: MessageComponentProps) => {
-    const isAssistant = message.role === "assistant";
-
-    return (
-      <Message
-        className={cn(
-          "mx-auto flex w-full max-w-3xl flex-col gap-2 px-2 md:px-10",
-          isAssistant ? "items-start" : "items-end"
-        )}
-      >
-        {isAssistant ? (
-          <div className="group flex w-full flex-col gap-0">
-            <MessageContent
-              className="prose w-full min-w-0 flex-1 rounded-lg bg-transparent p-0 text-foreground"
-              markdown
-            >
-              {message.parts
-                .map((part) => (part.type === "text" ? part.text : null))
-                .join("")}
-            </MessageContent>
-            <MessageActions
-              className={cn(
-                "-ml-2.5 flex gap-0 opacity-0 transition-opacity duration-150 group-hover:opacity-100",
-                isLastMessage && "opacity-100"
-              )}
-            >
-              <MessageAction delayDuration={100} tooltip="Copy">
-                <Button className="rounded-full" size="icon" variant="ghost">
-                  <Copy />
-                </Button>
-              </MessageAction>
-              <MessageAction delayDuration={100} tooltip="Upvote">
-                <Button className="rounded-full" size="icon" variant="ghost">
-                  <ThumbsUp />
-                </Button>
-              </MessageAction>
-              <MessageAction delayDuration={100} tooltip="Downvote">
-                <Button className="rounded-full" size="icon" variant="ghost">
-                  <ThumbsDown />
-                </Button>
-              </MessageAction>
-            </MessageActions>
-          </div>
-        ) : (
-          <div className="group flex w-full flex-col items-end gap-1">
-            <MessageContent className="max-w-[85%] whitespace-pre-wrap rounded-3xl bg-muted px-5 py-2.5 text-primary sm:max-w-[75%]">
-              {message.parts
-                .map((part) => (part.type === "text" ? part.text : null))
-                .join("")}
-            </MessageContent>
-            <MessageActions
-              className={cn(
-                "flex gap-0 opacity-0 transition-opacity duration-150 group-hover:opacity-100"
-              )}
-            >
-              <MessageAction delayDuration={100} tooltip="Copy">
-                <Button className="rounded-full" size="icon" variant="ghost">
-                  <Copy />
-                </Button>
-              </MessageAction>
-            </MessageActions>
-          </div>
-        )}
-      </Message>
-    );
-  }
-);
-
-MessageComponent.displayName = "MessageComponent";
-
-const LoadingMessage = memo(() => (
-  <Message className="mx-auto flex w-full max-w-3xl flex-col items-start gap-2 px-0 md:px-10">
-    <div className="group flex w-full flex-col gap-0">
-      <div className="prose w-full min-w-0 flex-1 rounded-lg bg-transparent p-0 text-foreground">
-        <PulseLoader />
-      </div>
-    </div>
-  </Message>
-));
-
-LoadingMessage.displayName = "LoadingMessage";
-
-const ErrorMessage = memo(({ error }: { error: Error }) => (
-  <Message className="not-prose mx-auto flex w-full max-w-3xl flex-col items-start gap-2 px-0 md:px-10">
-    <div className="group flex w-full flex-col items-start gap-0">
-      <div className="flex min-w-0 flex-1 flex-row items-center gap-2 rounded-lg border-2 border-red-300 bg-red-300/20 px-2 py-1 text-primary">
-        <AlertTriangle className="text-red-500" size={16} />
-        <p className="text-red-500">{error.message}</p>
-      </div>
-    </div>
-  </Message>
-));
-
-ErrorMessage.displayName = "ErrorMessage";
+import { ScrollButton } from "../ui/scroll-button";
 
 export function Chat() {
   const [input, setInput] = useState("");
@@ -147,7 +38,7 @@ export function Chat() {
     <div className="overscroll-behavior-contain flex h-dvh min-w-0 touch-pan-y flex-col bg-background">
       <ChatHeader />
 
-      <ChatContainerRoot className="relative flex-1 space-y-0 overflow-y-auto">
+      <ChatContainerRoot className="scrollbar-hide relative flex-1 space-y-0 overflow-y-auto">
         <ChatContainerContent
           className="space-y-12 px-4 py-12"
           scrollClassName="scrollbar-hide"
@@ -167,9 +58,18 @@ export function Chat() {
           {status === "submitted" && <LoadingMessage />}
           {status === "error" && error && <ErrorMessage error={error} />}
         </ChatContainerContent>
+        <div className="absolute inset-x-0 bottom-2">
+          <div className="relative mx-auto flex max-w-4xl justify-end px-2 md:px-4">
+            <ScrollButton variant={"default"} />
+          </div>
+        </div>
       </ChatContainerRoot>
 
-      <div className="sticky bottom-0 z-1 mx-auto flex w-full max-w-4xl gap-2 border-t-0 bg-background px-2 pb-3 md:px-4 md:pb-4">
+      <div className="sticky bottom-0 z-1 mx-auto flex w-full max-w-4xl flex-col gap-3 border-t-0 bg-background px-2 pb-3 md:px-4 md:pb-4">
+        <ChatSuggestions
+          onSuggestionClick={setInput}
+          show={messages.length === 0}
+        />
         <PromptInput
           className="relative z-10 w-full rounded-3xl border border-input bg-popover p-0 pt-1 shadow-xs"
           isLoading={status !== "ready"}
