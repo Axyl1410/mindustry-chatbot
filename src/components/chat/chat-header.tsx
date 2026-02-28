@@ -25,7 +25,7 @@ export function ChatHeader() {
           <TooltipTrigger asChild>
             <Button
               // className="order-2 ml-auto md:order-1 md:ml-0"
-              className="order-1 ml-0"
+              className="order-3 ml-0 md:order-1"
               onClick={() => {
                 router.push("/");
                 router.refresh();
@@ -45,11 +45,11 @@ export function ChatHeader() {
         trigger={
           <Button
             // className="order-3 hidden md:ml-auto md:flex"
-            className="order-3 ml-auto flex"
+            className="order-2 ml-auto flex md:order-3"
             size="icon"
             variant="ghost"
           >
-            <InfoIcon />
+            <InfoIcon size={16} />
           </Button>
         }
       />

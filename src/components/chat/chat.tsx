@@ -24,7 +24,7 @@ export function Chat() {
             className="dark:invert"
             height={38}
             priority
-            src="/next.svg"
+            src="assets/next.svg"
             width={180}
           />
           <ol className="list-inside list-decimal text-center text-sm/6 sm:text-left">
@@ -55,7 +55,7 @@ export function Chat() {
               alt="File icon"
               aria-hidden
               height={16}
-              src="/file.svg"
+              src="assets/file.svg"
               width={16}
             />
             Learn
@@ -70,7 +70,7 @@ export function Chat() {
               alt="Globe icon"
               aria-hidden
               height={16}
-              src="/globe.svg"
+              src="assets/globe.svg"
               width={16}
             />
             Go to nextjs.org →
