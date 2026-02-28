@@ -7,10 +7,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
 import React, {
   createContext,
   useContext,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -65,6 +67,7 @@ function PromptInput({
 }: PromptInputProps) {
   const [internalValue, setInternalValue] = useState(value || "")
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const isMobile = useIsMobile()
 
   const handleChange = (newValue: string) => {
     setInternalValue(newValue)
@@ -75,6 +78,12 @@ function PromptInput({
     if (!disabled) textareaRef.current?.focus()
     onClick?.(e)
   }
+
+  useEffect(() => {
+    if (isLoading && isMobile) {
+      textareaRef.current?.blur()
+    }
+  }, [isLoading, isMobile])
 
   return (
     <TooltipProvider>

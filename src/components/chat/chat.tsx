@@ -2,12 +2,10 @@ import { useChat } from "@ai-sdk/react";
 import { ArrowUp } from "lucide-react";
 import { useState } from "react";
 import { ChatHeader } from "@/components/chat/chat-header";
-import {
-  ErrorMessage,
-  LoadingMessage,
-  MessageComponent,
-} from "@/components/chat/chat-message";
+import { MessageComponent } from "@/components/chat/chat-message";
 import { ChatSuggestions } from "@/components/chat/chat-suggestions";
+import { ErrorMessage } from "@/components/chat/error-message";
+import { LoadingMessage } from "@/components/chat/loading-message";
 import { Button } from "@/components/ui/button";
 import {
   ChatContainerContent,

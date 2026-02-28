@@ -3,7 +3,6 @@ import type { UIMessage, UIMessagePart } from "ai";
 import { Copy, ThumbsDown, ThumbsUp } from "lucide-react";
 import { memo } from "react";
 import { Button } from "@/components/ui/button";
-import { PulseLoader } from "@/components/ui/loader";
 import {
   Message,
   MessageAction,
@@ -16,7 +15,6 @@ import {
   ReasoningTrigger,
 } from "@/components/ui/reasoning";
 import { Source, SourceContent, SourceTrigger } from "@/components/ui/source";
-import { SystemMessage } from "@/components/ui/system-message";
 import { cn } from "@/lib/utils";
 import { Tool, type ToolPart } from "../ui/tool";
 
@@ -128,7 +126,7 @@ export const MessageComponent = memo(
             })()}
             <MessageActions
               className={cn(
-                "-ml-2.5 flex gap-0 opacity-0 transition-opacity duration-150 group-hover:opacity-100",
+                "-ml-2.5 flex gap-0 transition-opacity duration-150 group-hover:opacity-100 md:opacity-0",
                 isLastMessage && "opacity-100"
               )}
             >
@@ -158,7 +156,7 @@ export const MessageComponent = memo(
             </MessageContent>
             <MessageActions
               className={cn(
-                "flex gap-0 opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+                "flex gap-0 transition-opacity duration-150 group-hover:opacity-100 md:opacity-0"
               )}
             >
               <MessageAction delayDuration={100} tooltip="Copy">
@@ -175,25 +173,3 @@ export const MessageComponent = memo(
 );
 
 MessageComponent.displayName = "MessageComponent";
-
-export const LoadingMessage = memo(() => (
-  <Message className="mx-auto flex w-full max-w-3xl flex-col items-start gap-2 px-0 md:px-10">
-    <div className="group flex w-full flex-col gap-0">
-      <div className="prose w-full min-w-0 flex-1 rounded-lg bg-transparent p-0 text-foreground">
-        <PulseLoader />
-      </div>
-    </div>
-  </Message>
-));
-
-LoadingMessage.displayName = "LoadingMessage";
-
-export const ErrorMessage = memo(({ error }: { error: Error }) => (
-  <Message className="not-prose mx-auto flex w-full max-w-3xl flex-col items-start gap-2 px-0 md:px-10">
-    <SystemMessage className="w-full" fill variant="error">
-      {error.message}
-    </SystemMessage>
-  </Message>
-));
-
-ErrorMessage.displayName = "ErrorMessage";
