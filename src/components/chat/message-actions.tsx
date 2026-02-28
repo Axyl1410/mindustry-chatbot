@@ -1,7 +1,5 @@
 import { Check, Copy, ThumbsDown, ThumbsUp } from "lucide-react";
 import { memo, useState } from "react";
-import { sileo } from "sileo";
-import { useCopyToClipboard } from "usehooks-ts";
 import { Button } from "@/components/ui/button";
 import {
   MessageAction,
@@ -72,12 +70,12 @@ export interface UserMessageActionsProps {
 
 export const UserMessageActions = memo(
   ({ textToCopy }: UserMessageActionsProps) => {
-    const [, copy] = useCopyToClipboard();
+    const [copied, setCopied] = useState(false);
 
     const handleCopy = () => {
-      copy(textToCopy)
-        .then(() => sileo.success({ title: "Copied!" }))
-        .catch(() => sileo.error({ title: "Failed to copy" }));
+      navigator.clipboard.writeText(textToCopy);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     };
 
     return (
@@ -89,7 +87,11 @@ export const UserMessageActions = memo(
             size="icon"
             variant="ghost"
           >
-            <Copy />
+            {copied ? (
+              <Check className="h-4 w-4 text-green-500" />
+            ) : (
+              <Copy className="h-4 w-4" />
+            )}
           </Button>
         </MessageAction>
       </MessageActionsRoot>
