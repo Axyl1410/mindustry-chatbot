@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/drawer";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { useIsMobile } from "@/hooks/use-mobile";
+import mindustryImg from "../../../public/images/mindustry.webp";
 import { AppInfoContent } from "./app-info-content";
 
 interface AppInfoTriggerProps {
@@ -47,7 +48,8 @@ export function AppInfoTrigger({ trigger }: AppInfoTriggerProps) {
               className="h-32 w-full object-cover object-[45%_55%]"
               draggable={false}
               height={128}
-              src="/images/mindustry.webp"
+              placeholder="blur"
+              src={mindustryImg}
               width={400}
             />
             <DrawerTitle className="hidden">Mindustry Chatbot</DrawerTitle>
@@ -73,7 +75,8 @@ export function AppInfoTrigger({ trigger }: AppInfoTriggerProps) {
             className="h-32 w-full object-cover object-[45%_55%]"
             draggable={false}
             height={128}
-            src="/images/mindustry.webp"
+            placeholder="blur"
+            src={mindustryImg}
             width={400}
           />
           <DialogTitle className="hidden">Mindustry Chatbot</DialogTitle>
