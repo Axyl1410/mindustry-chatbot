@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "packageManager": "bun@1.3.5",
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "build": "turbo run build",
     "build:cloudflare": "turbo run build:cloudflare --filter=web",
