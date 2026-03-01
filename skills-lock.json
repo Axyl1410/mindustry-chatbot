@@ -1,10 +1,20 @@
 {
   "version": 1,
   "skills": {
+    "next-best-practices": {
+      "source": "vercel-labs/next-skills",
+      "sourceType": "github",
+      "computedHash": "515ba75178bd44875812d9a560bdf14651f86709f89cf1d4f209638e879807f3"
+    },
     "turborepo": {
       "source": "vercel/turborepo",
       "sourceType": "github",
       "computedHash": "43f716868178e2a0ccd91fd31ff33f19cdd0ecdea399a0341308964f732604d1"
+    },
+    "workers-best-practices": {
+      "source": "cloudflare/skills",
+      "sourceType": "github",
+      "computedHash": "420e1ad3eaeb8ed2016e6b34fff3757de6aa39899ec2bd6e9784a29c38e70f9a"
     }
   }
 }
