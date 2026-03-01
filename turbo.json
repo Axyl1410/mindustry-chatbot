@@ -52,6 +52,11 @@
     "analyze": {
       "cache": false,
       "description": "Next.js bundle analysis"
+    },
+    "versions:upload": {
+      "cache": false,
+      "dependsOn": ["build:cloudflare"],
+      "description": "Wrangler versions upload"
     }
   }
 }
