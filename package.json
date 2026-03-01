@@ -9,9 +9,9 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "build:cloudflare": "turbo run build:cloudflare --filter=web",
-    "deploy:cloudflare": "turbo run deploy:cloudflare --filter=web",
-    "versions:upload": "turbo run versions:upload --filter=web",
+    "web:build:cloudflare": "turbo run build:cloudflare --filter=web",
+    "web:deploy:cloudflare": "turbo run deploy:cloudflare --filter=web",
+    "web:versions:upload": "turbo run versions:upload --filter=web",
     "dev": "turbo run dev",
     "start": "turbo run start",
     "lint": "turbo run lint",
