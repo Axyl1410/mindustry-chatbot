@@ -3,10 +3,12 @@
   "extends": ["ultracite/biome/core", "ultracite/biome/next"],
   "files": {
     "includes": [
-      "!cloudflare-env.d.ts",
+      "apps/**",
+      "packages/**",
+      "!**/cloudflare-env.d.ts",
       "!bun.lock",
-      "!src/components/ui",
-      "!src/components/icons.tsx"
+      "!**/components/ui",
+      "!**/icons.tsx"
     ]
   }
 }
