@@ -1,0 +1,57 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [".env*", "**/tsconfig.json"],
+  "tasks": {
+    "build": {
+      "outputs": [".next/**", "!.next/cache/**", "out/**", ".open-next/**"],
+      "description": "Next.js production build and OpenNext artifacts"
+    },
+    "build:cloudflare": {
+      "outputs": [".open-next/**"],
+      "description": "OpenNext build for Cloudflare"
+    },
+    "deploy:cloudflare": {
+      "cache": false,
+      "dependsOn": ["build:cloudflare"],
+      "description": "Deploy to Cloudflare"
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "description": "Next.js development server"
+    },
+    "start": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["build"],
+      "description": "Start production Next.js server"
+    },
+    "lint": {
+      "outputs": [],
+      "description": "Next.js and ESLint"
+    },
+    "deploy": {
+      "cache": false,
+      "dependsOn": ["build"],
+      "description": "OpenNext build and deploy to Cloudflare"
+    },
+    "upload": {
+      "cache": false,
+      "dependsOn": ["build"],
+      "description": "OpenNext build and upload to Cloudflare"
+    },
+    "preview": {
+      "cache": false,
+      "dependsOn": ["build"],
+      "description": "OpenNext build and preview"
+    },
+    "cf-typegen": {
+      "outputs": ["cloudflare-env.d.ts"],
+      "description": "Generate Wrangler Cloudflare env types"
+    },
+    "analyze": {
+      "cache": false,
+      "description": "Next.js bundle analysis"
+    }
+  }
+}
