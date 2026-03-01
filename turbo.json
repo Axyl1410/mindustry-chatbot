@@ -9,8 +9,8 @@
   ],
   "tasks": {
     "build": {
-      "outputs": [".next/**", "!.next/cache/**", "out/**", ".open-next/**"],
-      "description": "Next.js production build and OpenNext artifacts"
+      "outputs": [".next/**", "!.next/cache/**", "out/**"],
+      "description": "Next.js production build"
     },
     "build:cloudflare": {
       "outputs": [".open-next/**"],
