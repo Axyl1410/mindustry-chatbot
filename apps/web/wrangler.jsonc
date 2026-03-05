@@ -19,6 +19,10 @@
     {
       "binding": "WORKER_SELF_REFERENCE",
       "service": "mindustry-chatbot"
+    },
+    {
+      "binding": "WORKER_SHIKI",
+      "service": "worker-shiki"
     }
   ],
   "observability": {
