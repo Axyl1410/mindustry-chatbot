@@ -1,11 +1,10 @@
 import { PromptSuggestion } from "@/components/ui/prompt-suggestion";
 
 const DEFAULT_SUGGESTIONS = [
-  "what's the current date?",
-  "what time is it in Tokyo?",
-  "give me the current time in Europe/Paris",
-  "Write a poem",
-  "Code a React component",
+  "Explain how Logic works in Mindustry",
+  "Design an optimal schematic for a Silicon factory",
+  "How to set up an automatic transport system using Flares",
+  "Compare the power between the Specter and Meltdown turrets",
 ] as const;
 
 export interface ChatSuggestionsProps {
