@@ -14,6 +14,7 @@ import { AssistantMessageActions, UserMessageActions } from "./message-actions";
 
 export interface MessageComponentProps {
   isLastMessage: boolean;
+  isStreaming?: boolean;
   message: UIMessage;
 }
 
@@ -41,7 +42,7 @@ const getMessageText = (parts: UIMessagePart<any, any>[]) =>
     .join("");
 
 export const MessageComponent = memo(
-  ({ message, isLastMessage }: MessageComponentProps) => {
+  ({ message, isLastMessage, isStreaming = false }: MessageComponentProps) => {
     const isAssistant = message.role === "assistant";
     const messageText = getMessageText(message.parts);
 
@@ -123,10 +124,12 @@ export const MessageComponent = memo(
                 </div>
               );
             })()}
-            <AssistantMessageActions
-              isLastMessage={isLastMessage}
-              textToCopy={messageText}
-            />
+            {!isStreaming && (
+              <AssistantMessageActions
+                isLastMessage={isLastMessage}
+                textToCopy={messageText}
+              />
+            )}
           </div>
         ) : (
           <div className="group flex w-full flex-col items-end gap-1">

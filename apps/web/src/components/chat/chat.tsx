@@ -45,10 +45,15 @@ export function Chat() {
         >
           {messages.map((message, index) => {
             const isLastMessage = index === messages.length - 1;
+            const isStreaming =
+              isLastMessage &&
+              message.role === "assistant" &&
+              status === "streaming";
 
             return (
               <MessageComponent
                 isLastMessage={isLastMessage}
+                isStreaming={isStreaming}
                 key={message.id}
                 message={message}
               />

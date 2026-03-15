@@ -4,7 +4,6 @@ const DEFAULT_SUGGESTIONS = [
   "Explain how Logic works in Mindustry",
   "Design an optimal schematic for a Silicon factory",
   "How to set up an automatic transport system using Flares",
-  "Compare the power between the Specter and Meltdown turrets",
 ] as const;
 
 export interface ChatSuggestionsProps {
