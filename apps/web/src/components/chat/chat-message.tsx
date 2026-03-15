@@ -55,11 +55,6 @@ export const MessageComponent = memo(
       >
         {isAssistant ? (
           <div className="group flex w-full flex-col gap-2">
-            <div className="w-full">
-              {message?.parts
-                .filter((part: any) => part.type?.startsWith("tool-"))
-                .map((part: any, index: number) => renderToolPart(part, index))}
-            </div>
             {(() => {
               const reasoningParts = getReasoningParts(message.parts);
               const reasoningText = reasoningParts
@@ -83,6 +78,11 @@ export const MessageComponent = memo(
               }
               return null;
             })()}
+            <div className="w-full">
+              {message?.parts
+                .filter((part: any) => part.type?.startsWith("tool-"))
+                .map((part: any, index: number) => renderToolPart(part, index))}
+            </div>
             <MessageContent
               className="prose w-full min-w-0 flex-1 rounded-lg bg-transparent p-0 text-foreground"
               markdown
